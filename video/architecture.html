@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Precedent — System Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #fafaf7;
+    --box: #ffffff;
+    --line: #d9d6cf;
+    --line-dark: #9b978c;
+    --ink: #23211d;
+    --muted: #6f6b61;
+    --plum: #4a154b;       /* Slack aubergine */
+    --plum-soft: #f3ecf3;
+    --green: #1f7a53;
+    --green-soft: #e9f4ee;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow: hidden; background: var(--paper); }
+  body { font-family: 'IBM Plex Sans', sans-serif; color: var(--ink); display: grid; place-items: center; }
+
+  /* fixed-size canvas, scaled to fit the window */
+  #canvas { width: 1800px; height: 960px; position: relative; transform-origin: center center; }
+
+  header { position: absolute; top: 0; left: 40px; right: 40px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 2px solid var(--ink); }
+  header .brand { display: flex; align-items: baseline; gap: 16px; }
+  header .brand b { font-size: 26px; font-weight: 700; letter-spacing: 0.02em; color: var(--plum); }
+  header .brand span { font-size: 14px; font-weight: 500; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; }
+  header .meta { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); text-align: right; line-height: 1.5; }
+
+  .group { position: absolute; border: 1.5px solid var(--line-dark); border-radius: 6px; background: transparent; }
+  .group > .ghead { position: absolute; top: -11px; left: 16px; background: var(--paper); padding: 0 10px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); }
+  .group > .gsub { position: absolute; top: -10px; right: 16px; background: var(--paper); padding: 0 8px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); }
+
+  .node { position: absolute; background: var(--box); border: 1px solid var(--line); border-radius: 5px;
+    padding: 12px 14px; box-shadow: 0 1px 2px rgba(35,33,29,0.05); }
+  .node h4 { font-size: 15px; font-weight: 600; }
+  .node h4 .mono { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 13px; color: var(--plum); }
+  .node p { font-size: 12.5px; color: var(--muted); line-height: 1.45; margin-top: 4px; }
+  .badge { display: inline-block; margin-top: 7px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.07em;
+    text-transform: uppercase; padding: 2px 8px; border-radius: 3px; }
+  .badge.plum { background: var(--plum-soft); color: var(--plum); border: 1px solid #d9c3da; }
+  .badge.green { background: var(--green-soft); color: var(--green); border: 1px solid #bfdccb; }
+
+  svg.wires { position: absolute; inset: 0; pointer-events: none; }
+  .wire { stroke: var(--line-dark); stroke-width: 1.5; fill: none; }
+  .wlbl { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; fill: var(--muted); }
+  .wlbl-bg { fill: var(--paper); }
+
+  footer { position: absolute; bottom: 0; left: 40px; right: 40px; height: 46px;
+    border-top: 1px solid var(--line-dark); display: flex; align-items: center; justify-content: space-between;
+    font-size: 12.5px; color: var(--muted); }
+  footer .mono { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; }
+</style>
+</head>
+<body>
+<div id="canvas">
+
+  <header>
+    <div class="brand"><b>Precedent</b><span>System architecture</span></div>
+    <div class="meta">Slack Agent Builder Challenge · 2026<br/>Track: New Slack Agent</div>
+  </header>
+
+  <!-- ═══ GROUP: SLACK WORKSPACE ═══ -->
+  <div class="group" style="left:40px; top:120px; width:400px; height:560px;">
+    <span class="ghead">Slack workspace</span>
+    <span class="gsub">slackagentbuilding.slack.com</span>
+  </div>
+  <div class="node" style="left:64px; top:156px; width:352px;">
+    <h4>Channels <span class="mono">message.channels</span></h4>
+    <p>Team conversation. Message events stream to the agent; confirmation and precedent cards are posted back in-thread via Block Kit.</p>
+  </div>
+  <div class="node" style="left:64px; top:288px; width:352px;">
+    <h4>AI Assistant thread <span class="mono">assistant_thread_*</span></h4>
+    <p>Native assistant panel: suggested prompts, live status, thread titles, grounded Q&amp;A.</p>
+    <span class="badge plum">Qualifying tech — Slack AI</span>
+  </div>
+  <div class="node" style="left:64px; top:426px; width:352px;">
+    <h4>App Home <span class="mono">app_home_opened</span></h4>
+    <p>Dashboard of all decisions and outstanding commitments; one-click complete.</p>
+  </div>
+  <div class="node" style="left:64px; top:552px; width:352px;">
+    <h4>Slash command &amp; shortcut</h4>
+    <p><span style="font-family:'IBM Plex Mono',monospace">/precedent list · search</span> and a “Log as decision” message shortcut.</p>
+  </div>
+
+  <!-- ═══ GROUP: AGENT ═══ -->
+  <div class="group" style="left:660px; top:120px; width:460px; height:700px;">
+    <span class="ghead">Precedent agent</span>
+    <span class="gsub">Node.js · Bolt for JS v4</span>
+  </div>
+  <div class="node" style="left:684px; top:156px; width:412px;">
+    <h4>Detection pipeline</h4>
+    <p>Stage 1 — regex cue prefilter (decision / commitment / re-litigation), zero cost per message. Stage 2 — LLM extraction of title, rationale, rejected alternatives with confidence threshold. Stage 3 — human confirmation card. Nothing is logged without a click.</p>
+  </div>
+  <div class="node" style="left:684px; top:318px; width:412px;">
+    <h4>Re-litigation guard</h4>
+    <p>Question-phrased cues trigger a registry precedent check <em>before</em> classification. On a match: interject with the original decision, decider and permalink.</p>
+  </div>
+  <div class="node" style="left:684px; top:454px; width:412px;">
+    <h4>Grounded answerer</h4>
+    <p>Registry search + RTS context assembled into cited answers (“Decision #5, decided by …, thread ↗”). Declines to invent when nothing matches.</p>
+  </div>
+  <div class="node" style="left:684px; top:586px; width:412px;">
+    <h4>Nudge scheduler</h4>
+    <p>Hourly sweep of open commitments; owners receive a DM before due dates slip. Status lifecycle: open → nudged → done.</p>
+  </div>
+  <div class="node" style="left:684px; top:718px; width:412px; border-style:dashed;">
+    <h4>Registry data model</h4>
+    <p>Decision: title · rationale · alternatives · decider · status · permalink. Commitment: owner · action · due date · status · permalink.</p>
+  </div>
+
+  <!-- ═══ RIGHT COLUMN ═══ -->
+  <div class="node" style="left:1340px; top:130px; width:420px;">
+    <h4>LLM providers <span class="mono">REST</span></h4>
+    <p>Gemini Flash primary with automatic model fallback on 503/429 → any OpenAI-compatible endpoint → Anthropic. Provider-agnostic JSON contract.</p>
+  </div>
+  <div class="node" style="left:1340px; top:280px; width:420px;">
+    <h4>Real-Time Search API</h4>
+    <p><span style="font-family:'IBM Plex Mono',monospace">assistant.search.context</span> — workspace-wide context enrichment for answers, with graceful degradation.</p>
+    <span class="badge plum">Qualifying tech — RTS API</span>
+  </div>
+  <div class="node" style="left:1340px; top:432px; width:420px;">
+    <h4>SQLite registry <span class="mono">node:sqlite</span></h4>
+    <p>Embedded, zero native dependencies. Tables: decisions, commitments. Every row carries a permalink to its source thread — answers cite receipts.</p>
+  </div>
+  <div class="node" style="left:1340px; top:584px; width:420px;">
+    <h4>MCP server <span class="mono">stdio</span></h4>
+    <p>Five tools — search_decisions, get_decision, list_recent_decisions, list_open_commitments, log_decision — zod-validated, official SDK.</p>
+    <span class="badge plum">Qualifying tech — MCP</span>
+  </div>
+  <div class="node" style="left:1340px; top:748px; width:420px; background:var(--plum-soft); border-color:#d9c3da;">
+    <h4 style="color:var(--plum)">External AI agents</h4>
+    <p>Claude Desktop · Claude Code · Cursor · any MCP client — the team’s decision memory becomes queryable infrastructure outside Slack.</p>
+  </div>
+
+  <!-- ═══ WIRES ═══ -->
+  <svg class="wires" width="1800" height="960" viewBox="0 0 1800 960">
+    <defs>
+      <marker id="ah" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto">
+        <path d="M0,0 L9,4 L0,8 z" fill="#9b978c"/>
+      </marker>
+    </defs>
+
+    <!-- Slack <-> Agent -->
+    <line class="wire" x1="448" y1="400" x2="652" y2="400" marker-end="url(#ah)" marker-start="url(#ah)"/>
+    <rect class="wlbl-bg" x="462" y="378" width="176" height="16"/>
+    <text class="wlbl" x="550" y="390" text-anchor="middle">Socket Mode · WebSocket</text>
+    <rect class="wlbl-bg" x="466" y="404" width="168" height="16"/>
+    <text class="wlbl" x="550" y="416" text-anchor="middle">events in · Block Kit out</text>
+
+    <!-- Agent -> LLM -->
+    <path class="wire" d="M1128 220 H1332" marker-end="url(#ah)"/>
+    <rect class="wlbl-bg" x="1152" y="198" width="156" height="16"/>
+    <text class="wlbl" x="1230" y="210" text-anchor="middle">classify · judge</text>
+
+    <!-- Agent -> RTS -->
+    <path class="wire" d="M1128 350 H1332" marker-end="url(#ah)"/>
+    <rect class="wlbl-bg" x="1168" y="328" width="124" height="16"/>
+    <text class="wlbl" x="1230" y="340" text-anchor="middle">search query</text>
+
+    <!-- Agent <-> SQLite -->
+    <line class="wire" x1="1128" y1="500" x2="1332" y2="500" marker-end="url(#ah)" marker-start="url(#ah)"/>
+    <rect class="wlbl-bg" x="1178" y="478" width="104" height="16"/>
+    <text class="wlbl" x="1230" y="490" text-anchor="middle">read · write</text>
+
+    <!-- SQLite -> MCP -->
+    <path class="wire" d="M1550 548 V576" marker-end="url(#ah)"/>
+
+    <!-- MCP -> external agents -->
+    <path class="wire" d="M1550 712 V740" marker-end="url(#ah)"/>
+    <rect class="wlbl-bg" x="1562" y="716" width="120" height="16"/>
+    <text class="wlbl" x="1568" y="728">MCP · stdio</text>
+  </svg>
+
+  <footer>
+    <span>Human-in-the-loop by design — every registry entry is user-confirmed and traceable to its source thread.</span>
+    <span class="mono">Qualifying technologies used: Slack AI Assistant · Real-Time Search API · MCP — all three</span>
+  </footer>
+</div>
+
+<script>
+  function fit() {
+    const s = Math.min(innerWidth / 1860, innerHeight / 1010);
+    document.getElementById('canvas').style.transform = `scale(${s})`;
+  }
+  addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>

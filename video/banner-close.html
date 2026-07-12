@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Precedent — Closing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #150a17;
+    --white: #f7f4f8;
+    --dim: #9d8aa3;
+    --sl-blue: #36c5f0;
+    --sl-green: #2eb67d;
+    --sl-red: #e01e5a;
+    --sl-yellow: #ecb22e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    display: grid; place-items: center;
+    position: relative;
+  }
+
+  .aurora { position: fixed; inset: 0; pointer-events: none; filter: blur(90px); opacity: 0.45; }
+  .blob { position: absolute; border-radius: 50%; animation: drift 14s ease-in-out infinite alternate; }
+  .b1 { width: 42vw; height: 42vw; background: radial-gradient(circle, var(--sl-green), transparent 70%); top: -16vw; left: -8vw; }
+  .b2 { width: 40vw; height: 40vw; background: radial-gradient(circle, var(--sl-blue), transparent 70%); bottom: -16vw; right: -8vw; animation-delay: -6s; }
+  .b3 { width: 26vw; height: 26vw; background: radial-gradient(circle, var(--sl-red), transparent 70%); top: -4vw; right: 20vw; animation-delay: -3s; opacity: 0.55; }
+  @keyframes drift {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(4vw, 3vh) scale(1.15); }
+  }
+  .veil { position: fixed; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 110% 90% at 50% 50%, transparent 40%, rgba(21,10,23,0.85) 100%); }
+
+  .card { text-align: center; position: relative; z-index: 1; padding: 0 6vw; }
+
+  .brand {
+    display: inline-flex; align-items: center; gap: clamp(14px, 1.2vw, 22px);
+    opacity: 0; animation: fadeUp 1s cubic-bezier(0.19,1,0.22,1) 0.2s forwards;
+  }
+  .mark { width: clamp(40px, 3.4vw, 58px); height: auto; }
+  .brand-name {
+    font-size: clamp(34px, 3.4vw, 62px);
+    font-weight: 750; letter-spacing: -0.02em;
+    font-variation-settings: 'opsz' 96;
+  }
+
+  .tagline {
+    margin-top: 6vh;
+    font-size: clamp(42px, 5.2vw, 100px);
+    font-weight: 700;
+    font-variation-settings: 'opsz' 96;
+    letter-spacing: -0.03em;
+    line-height: 1.16;
+  }
+  .tagline .line { display: block; opacity: 0; transform: translateY(28px); animation: fadeUp 1.2s cubic-bezier(0.19,1,0.22,1) forwards; }
+  .tagline .line:nth-child(1) { animation-delay: 0.7s; }
+  .tagline .line:nth-child(2) { animation-delay: 1.4s; }
+  .hl-green { background: linear-gradient(90deg, var(--sl-green), #5ed6a4); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .hl-blue  { background: linear-gradient(90deg, var(--sl-blue), #7fdcf7); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+  .pills {
+    margin-top: 7vh;
+    display: flex; justify-content: center; gap: clamp(10px, 1vw, 18px); flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 1.1s ease 2.3s forwards;
+  }
+  .pill {
+    font-family: 'Manrope', sans-serif; font-weight: 600;
+    font-size: clamp(12px, 1vw, 18px);
+    letter-spacing: 0.08em;
+    padding: 0.75em 1.5em; border-radius: 99px;
+    border: 1.5px solid rgba(247,244,248,0.22);
+    background: rgba(247,244,248,0.06);
+    backdrop-filter: blur(6px);
+  }
+  .pill .dot { display: inline-block; width: 0.55em; height: 0.55em; border-radius: 50%; margin-right: 0.6em; vertical-align: 1px; }
+  .d-blue { background: var(--sl-blue); } .d-green { background: var(--sl-green); } .d-yellow { background: var(--sl-yellow); }
+
+  .foot {
+    position: fixed; bottom: 4.5vh; left: 0; right: 0; text-align: center;
+    font-family: 'Manrope', sans-serif; font-weight: 500;
+    font-size: clamp(11px, 0.85vw, 15px);
+    letter-spacing: 0.32em; text-transform: uppercase; color: var(--dim);
+    opacity: 0; animation: fadeIn 1.4s ease 2.9s forwards;
+  }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { to { opacity: 0.9; } }
+</style>
+</head>
+<body>
+  <div class="aurora">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+  <div class="veil"></div>
+
+  <main class="card">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 100 100" fill="none" stroke-width="11" stroke-linecap="round">
+        <line x1="36" y1="16" x2="28" y2="84" stroke="#36c5f0" />
+        <line x1="72" y1="16" x2="64" y2="84" stroke="#2eb67d" />
+        <line x1="16" y1="38" x2="86" y2="38" stroke="#ecb22e" />
+        <line x1="14" y1="66" x2="84" y2="66" stroke="#e01e5a" />
+      </svg>
+      <span class="brand-name">Precedent</span>
+    </div>
+
+    <p class="tagline">
+      <span class="line">Never lose <span class="hl-green">your decisions</span>.</span>
+      <span class="line">Never miss <span class="hl-blue">a commitment</span>.</span>
+    </p>
+
+    <div class="pills">
+      <span class="pill"><span class="dot d-blue"></span>Slack AI Assistant</span>
+      <span class="pill"><span class="dot d-green"></span>Real-Time Search API</span>
+      <span class="pill"><span class="dot d-yellow"></span>MCP Server</span>
+    </div>
+  </main>
+
+  <div class="foot">Built for the Slack Agent Builder Challenge · 2026</div>
+</body>
+</html>

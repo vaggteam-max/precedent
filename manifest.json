@@ -1,0 +1,83 @@
+{
+  "display_information": {
+    "name": "Precedent",
+    "description": "Institutional memory for your team — never lose a decision again.",
+    "long_description": "Precedent watches your team's conversations for decisions and commitments, logs them in a structured registry with links back to the original thread, answers \"why did we decide this?\" with real provenance, warns you when a discussion re-litigates something already settled, and nudges people about commitments they made. It also exposes the decision log to other AI agents via MCP.",
+    "background_color": "#1a1d29"
+  },
+  "features": {
+    "app_home": {
+      "home_tab_enabled": true,
+      "messages_tab_enabled": true,
+      "messages_tab_read_only_enabled": false
+    },
+    "bot_user": {
+      "display_name": "Precedent",
+      "always_online": true
+    },
+    "assistant_view": {
+      "assistant_description": "Your team's institutional memory. Ask me why a decision was made, what was decided about a topic, or who committed to what.",
+      "suggested_prompts": [
+        { "title": "Recent decisions", "message": "What decisions has the team made recently?" },
+        { "title": "Why did we…?", "message": "Why did we make our most recent architecture decision?" },
+        { "title": "Open commitments", "message": "What open commitments does the team have?" }
+      ]
+    },
+    "slash_commands": [
+      {
+        "command": "/precedent",
+        "description": "Log, list & search team decisions",
+        "usage_hint": "[list | search <query> | help]",
+        "should_escape": false
+      }
+    ],
+    "shortcuts": [
+      {
+        "name": "Log as decision",
+        "type": "message",
+        "callback_id": "log_decision_action",
+        "description": "Save this message to the team decision registry"
+      }
+    ]
+  },
+  "oauth_config": {
+    "scopes": {
+      "bot": [
+        "app_mentions:read",
+        "assistant:write",
+        "channels:history",
+        "channels:read",
+        "chat:write",
+        "commands",
+        "groups:history",
+        "groups:read",
+        "im:history",
+        "im:read",
+        "im:write",
+        "users:read",
+        "search:read.public",
+        "search:read.files",
+        "search:read.users"
+      ]
+    }
+  },
+  "settings": {
+    "event_subscriptions": {
+      "bot_events": [
+        "app_home_opened",
+        "app_mention",
+        "assistant_thread_started",
+        "assistant_thread_context_changed",
+        "message.channels",
+        "message.groups",
+        "message.im"
+      ]
+    },
+    "interactivity": {
+      "is_enabled": true
+    },
+    "org_deploy_enabled": false,
+    "socket_mode_enabled": true,
+    "token_rotation_enabled": false
+  }
+}

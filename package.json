@@ -1,0 +1,19 @@
+{
+  "name": "precedent",
+  "version": "0.1.0",
+  "description": "Precedent — institutional memory for Slack. Detects decisions & commitments, logs them with provenance, and stops teams from re-litigating settled questions.",
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/app.js",
+    "mcp": "node --env-file-if-exists=.env mcp/server.js",
+    "export": "node --env-file-if-exists=.env scripts/export-registry.js"
+  },
+  "dependencies": {
+    "@slack/bolt": "^4.2.0",
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.24.0"
+  },
+  "engines": {
+    "node": ">=23.4"
+  }
+}

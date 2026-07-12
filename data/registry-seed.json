@@ -1,0 +1,105 @@
+{
+  "exported_at": "2026-07-12T13:41:41.452Z",
+  "decisions": [
+    {
+      "id": 4,
+      "title": "Use Redis for caching",
+      "summary": "The team decided to implement Redis as the caching solution to ensure session recovery through data persistence.",
+      "rationale": "Redis supports persistence which is necessary for session recovery.",
+      "alternatives": "Memcached",
+      "decided_by": "U0BGH9HL91T",
+      "channel_id": "C0BHEU2SF32",
+      "message_ts": "1783713751.209599",
+      "permalink": "https://slackagentbuilding.slack.com/archives/C0BHEU2SF32/p1783713751209599?thread_ts=1783713751.209599&cid=C0BHEU2SF32",
+      "status": "active",
+      "created_at": "2026-07-10 20:03:23"
+    },
+    {
+      "id": 5,
+      "title": "Select GitHub Actions for CI",
+      "summary": "The team has chosen GitHub Actions as the CI provider over CircleCI and Buildkite.",
+      "rationale": "GitHub Actions is free at the current usage tier and provides better integration by being located alongside the repository.",
+      "alternatives": "CircleCI and Buildkite",
+      "decided_by": "U0BGH9HL91T",
+      "channel_id": "C0BGTNT416G",
+      "message_ts": "1783782392.026259",
+      "permalink": "https://slackagentbuilding.slack.com/archives/C0BGTNT416G/p1783782392026259?thread_ts=1783782392.026259&cid=C0BGTNT416G",
+      "status": "active",
+      "created_at": "2026-07-11 15:08:51"
+    },
+    {
+      "id": 6,
+      "title": "Standardize on TypeScript for new services",
+      "summary": "The team has decided to use TypeScript as the mandatory standard for all new services to improve type safety and tooling.",
+      "rationale": "Recent runtime bugs in the payments script and the superior tooling payoff of TypeScript.",
+      "alternatives": "Staying on plain JavaScript with JSDoc annotations.",
+      "decided_by": "U0BGN147ZP0",
+      "channel_id": "C0BGTNT416G",
+      "message_ts": "1783782787.765469",
+      "permalink": "https://slackagentbuilding.slack.com/archives/C0BGTNT416G/p1783782787765469?thread_ts=1783782787.765469&cid=C0BGTNT416G",
+      "status": "active",
+      "created_at": "2026-07-11 15:13:32"
+    },
+    {
+      "id": 7,
+      "title": "Adopt Tailwind and shadcn",
+      "summary": "The team has decided to use Tailwind and shadcn for the design system instead of building custom components.",
+      "rationale": "It is faster to ship and the team is already familiar with these tools.",
+      "alternatives": "Building custom components",
+      "decided_by": "U0BGRU7BWG1",
+      "channel_id": "C0BGTNT416G",
+      "message_ts": "1783783046.206189",
+      "permalink": "https://slackagentbuilding.slack.com/archives/C0BGTNT416G/p1783783046206189?thread_ts=1783783046.206189&cid=C0BGTNT416G",
+      "status": "active",
+      "created_at": "2026-07-11 15:17:57"
+    },
+    {
+      "id": 8,
+      "title": "Choose Slack over other services",
+      "summary": "The team has officially decided to use Slack as their primary communication platform.",
+      "rationale": "It is considered better than other available services.",
+      "alternatives": "Any other services",
+      "decided_by": "U0BGH9HL91T",
+      "channel_id": "C0BGTNT416G",
+      "message_ts": "1783854934.759389",
+      "permalink": "https://slackagentbuilding.slack.com/archives/C0BGTNT416G/p1783854934759389?thread_ts=1783854934.759389&cid=C0BGTNT416G",
+      "status": "active",
+      "created_at": "2026-07-12 11:16:06"
+    }
+  ],
+  "commitments": [
+    {
+      "id": 2,
+      "who": "U0BGH9HL91T",
+      "what": "write the deployment runbook",
+      "due_date": "2026-07-13",
+      "channel_id": "C0BHEU2SF32",
+      "message_ts": "1783714184.638879",
+      "permalink": "https://slackagentbuilding.slack.com/archives/C0BHEU2SF32/p1783714184638879?thread_ts=1783714184.638879&cid=C0BHEU2SF32",
+      "status": "nudged",
+      "created_at": "2026-07-10 20:10:34"
+    },
+    {
+      "id": 3,
+      "who": "U0BGRU7BWG1",
+      "what": "Set up the GitHub Actions pipeline",
+      "due_date": "2026-07-13",
+      "channel_id": "C0BGTNT416G",
+      "message_ts": "1783783373.631279",
+      "permalink": "https://slackagentbuilding.slack.com/archives/C0BGTNT416G/p1783783373631279?thread_ts=1783783373.631279&cid=C0BGTNT416G",
+      "status": "nudged",
+      "created_at": "2026-07-11 15:23:37"
+    },
+    {
+      "id": 4,
+      "who": "U0BGH9HL91T",
+      "what": "write the onboarding doc for new contributors",
+      "due_date": "2026-07-12",
+      "channel_id": "C0BGTNT416G",
+      "message_ts": "1783783425.602939",
+      "permalink": "https://slackagentbuilding.slack.com/archives/C0BGTNT416G/p1783783425602939?thread_ts=1783783425.602939&cid=C0BGTNT416G",
+      "status": "nudged",
+      "created_at": "2026-07-11 15:24:29"
+    }
+  ]
+}
