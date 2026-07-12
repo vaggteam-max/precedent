@@ -107,10 +107,30 @@ export async function llmJSON(system, user) {
   } else {
     throw new Error(NO_KEY_MSG);
   }
-  // Strip accidental fences and parse the first JSON object found.
+  // Strip accidental fences and parse the first COMPLETE JSON object —
+  // models occasionally emit two objects back-to-back, so slicing to the
+  // last '}' is not safe. Walk braces, string-aware.
   const cleaned = raw.replace(/```(json)?/g, '').trim();
-  const start = cleaned.indexOf('{');
-  const end = cleaned.lastIndexOf('}');
-  if (start === -1 || end === -1) throw new Error(`LLM returned non-JSON: ${raw.slice(0, 200)}`);
-  return JSON.parse(cleaned.slice(start, end + 1));
+  return JSON.parse(extractFirstJsonObject(cleaned, raw));
+}
+
+function extractFirstJsonObject(s, raw) {
+  const start = s.indexOf('{');
+  if (start === -1) throw new Error(`LLM returned non-JSON: ${raw.slice(0, 200)}`);
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+  for (let i = start; i < s.length; i++) {
+    const ch = s[i];
+    if (escaped) { escaped = false; continue; }
+    if (ch === '\\') { escaped = inString; continue; }
+    if (ch === '"') { inString = !inString; continue; }
+    if (inString) continue;
+    if (ch === '{') depth++;
+    else if (ch === '}') {
+      depth--;
+      if (depth === 0) return s.slice(start, i + 1);
+    }
+  }
+  throw new Error(`LLM returned truncated JSON: ${raw.slice(0, 200)}`);
 }
